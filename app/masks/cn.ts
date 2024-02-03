@@ -25,6 +25,7 @@ export const CN_MASKS: BuiltinMask[] = [
     },
     lang: "cn",
     builtin: true,
+    hideContext: true,
     usePlugins: true,
     createdAt: 1706962807332,
   },
