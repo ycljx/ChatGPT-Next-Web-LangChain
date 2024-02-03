@@ -2,14 +2,14 @@ import { BuiltinMask } from "./typing";
 
 export const CN_MASKS: BuiltinMask[] = [
   {
-    avatar: "1f47e",
+    avatar: "1f60e",
     name: "前端面试识题",
     context: [
       {
         id: "recognize-0",
         role: "system",
         content:
-          "我想让你充当一个识图专家。我将提供一张截图，你能够从中识别出有关于前端面试的面试题，而你的工作就是为我解决其中的面试题！",
+          "你能够从我提供的截图中提取出代码编程题，并使用js实现，以下是我提供的截图：",
         date: "",
       },
     ],
