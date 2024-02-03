@@ -827,7 +827,7 @@ function _Chat() {
   };
 
   const doSubmit = (userInput: string, userImage?: any) => {
-    if (userInput.trim() === "") return;
+    if (userInput.trim() === "" && !userImage?.fileUrl) return;
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");

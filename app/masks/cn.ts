@@ -9,7 +9,7 @@ export const CN_MASKS: BuiltinMask[] = [
         id: "recognize-0",
         role: "system",
         content:
-          "你能够从我提供的截图中提取出代码编程题，并使用js实现，以下是我提供的截图：",
+          "你能够从我提供的截图中提取出代码编程题。注意：请你直接返回给我使用js实现的代码，并标上注释。以下是我提供的截图：",
         date: "",
       },
     ],
