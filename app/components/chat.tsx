@@ -827,7 +827,7 @@ function _Chat() {
   };
 
   const doSubmit = (userInput: string, userImage?: any) => {
-    if (userInput.trim() === "" && !userImage) return;
+    if (userInput.trim() === "") return;
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
