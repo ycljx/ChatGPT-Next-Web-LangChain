@@ -827,7 +827,10 @@ function _Chat() {
   };
 
   const doSubmit = (userInput: string, userImage?: any) => {
-    if (userInput.trim() === "" && !userImage?.fileUrl) return;
+    if (userInput.trim() === "") {
+      if (userImage?.fileUrl) userInput = "请按要求输出答案";
+      else return;
+    }
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
