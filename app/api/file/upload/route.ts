@@ -4,7 +4,9 @@ import { auth } from "@/app/api/auth";
 import LocalFileStorage from "@/app/utils/local_file_storage";
 import { getServerSideConfig } from "@/app/config/server";
 import S3FileStorage from "@/app/utils/s3_file_storage";
-import sharp from "sharp";
+import imagemin from "imagemin";
+import imageminMozjpeg from "imagemin-mozjpeg";
+import imageminPngquant from "imagemin-pngquant";
 
 async function handle(req: NextRequest) {
   if (req.method === "OPTIONS") {
@@ -34,10 +36,14 @@ async function handle(req: NextRequest) {
     const buffer = Buffer.from(imageData);
 
     // 压缩图片
-    const compressedBuffer = await sharp(buffer)
-      .resize(1024, 1024)
-      .png()
-      .toBuffer();
+    const compressedBuffer = await imagemin.buffer(buffer, {
+      plugins: [
+        imageminMozjpeg(),
+        imageminPngquant({
+          quality: [0.6, 0.8],
+        }),
+      ],
+    });
 
     var fileName = `${Date.now()}.png`;
     var filePath = "";
