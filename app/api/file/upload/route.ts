@@ -4,6 +4,7 @@ import { auth } from "@/app/api/auth";
 import LocalFileStorage from "@/app/utils/local_file_storage";
 import { getServerSideConfig } from "@/app/config/server";
 import S3FileStorage from "@/app/utils/s3_file_storage";
+import sharp from "sharp";
 
 async function handle(req: NextRequest) {
   if (req.method === "OPTIONS") {
@@ -32,13 +33,19 @@ async function handle(req: NextRequest) {
 
     const buffer = Buffer.from(imageData);
 
+    // 压缩图片
+    const compressedBuffer = await sharp(buffer)
+      .resize(1024, 1024)
+      .png()
+      .toBuffer();
+
     var fileName = `${Date.now()}.png`;
     var filePath = "";
     const serverConfig = getServerSideConfig();
     if (serverConfig.isStoreFileToLocal) {
-      filePath = await LocalFileStorage.put(fileName, buffer);
+      filePath = await LocalFileStorage.put(fileName, compressedBuffer);
     } else {
-      filePath = await S3FileStorage.put(fileName, buffer);
+      filePath = await S3FileStorage.put(fileName, compressedBuffer);
     }
     return NextResponse.json(
       {
